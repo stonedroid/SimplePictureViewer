@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\Explorer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,7 +72,11 @@
     <Compile Include="Domain\ExplorerImage.cs" />
     <Compile Include="Domain\ExplorerItem.cs" />
     <Compile Include="FileSystem\FileSystemHelper.cs" />
+    <Compile Include="Service\ExplorerService.cs" />
     <Compile Include="ViewModel\ExplorerViewModel.cs" />
+    <Compile Include="View\Explorer.xaml.cs">
+      <DependentUpon>Explorer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

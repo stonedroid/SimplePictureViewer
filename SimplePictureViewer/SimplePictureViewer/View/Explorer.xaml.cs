@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimplePictureViewer.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,10 +16,14 @@ using System.Windows.Shapes;
 
 namespace SimplePictureViewer.View
 {
-    public partial class MainWindow : Window
+    public partial class Explorer : UserControl
     {
-        public MainWindow()
+        public Explorer()
         {
+            //TODO consider using dependency injection
+            ExplorerViewModel viewModel = new ExplorerViewModel();
+            this.DataContext = viewModel;
+
             InitializeComponent();
         }
     }
