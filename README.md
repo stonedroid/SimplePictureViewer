@@ -1,2 +1,2 @@
 # SimplePictureViewer
-A simple picture vierwer to replace the photo viewer of windows 10.
+A simple picture viewer to replace the photo viewer of windows 10.
