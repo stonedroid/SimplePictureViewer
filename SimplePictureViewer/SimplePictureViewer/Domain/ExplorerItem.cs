@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace SimplePictureViewer.Domain
 {
-    class ExplorerItem
+    public abstract class ExplorerItem
     {
+        public ExplorerDirectory Parent { get; set; }
+        public string Name { get; private set; }
+
+        public ExplorerItem(string name)
+        {
+            this.Name = name;
+        }
     }
 }
