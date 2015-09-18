@@ -18,12 +18,9 @@ namespace SimplePictureViewer.Service
             this.fileSystemHelper = new FileSystemHelper();
         }
 
-        public ExplorerDirectory HomeDirectory
+        public ExplorerDirectory GetHomeDirectory()
         {
-            get
-            {
-                return fileSystemHelper.HomeDirectory;
-            }
+            return fileSystemHelper.GetHomeDirectory();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace SimplePictureViewer.ViewModel
         {
             //TODO consider using dependency injection
             this.explorerService = new ExplorerService();
-            this.Current = explorerService.HomeDirectory;
+            this.Current = explorerService.GetHomeDirectory();
         }
     }
 }
