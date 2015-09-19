@@ -1,6 +1,8 @@
 ﻿using SimplePictureViewer.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +20,12 @@ namespace SimplePictureViewer.View
 {
     public partial class Explorer : UserControl
     {
+        public IExplorerViewModel ViewModel {get;set;}
+
         public Explorer()
         {
-            //TODO consider using dependency injection
-            ExplorerViewModel viewModel = new ExplorerViewModel();
-            this.DataContext = viewModel;
-
+            ViewModel = ViewModelLocator.ExplorerViewModel;
+            DataContext = ViewModel;
             InitializeComponent();
         }
     }

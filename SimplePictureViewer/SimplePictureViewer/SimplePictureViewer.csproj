@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
@@ -73,8 +74,12 @@
     <Compile Include="Domain\ExplorerImage.cs" />
     <Compile Include="Domain\ExplorerItem.cs" />
     <Compile Include="FileSystem\FileSystemHelper.cs" />
+    <Compile Include="FileSystem\IFileSystemHelper.cs" />
     <Compile Include="Service\ExplorerService.cs" />
+    <Compile Include="Service\IExplorerService.cs" />
     <Compile Include="ViewModel\ExplorerViewModel.cs" />
+    <Compile Include="ViewModel\IExplorerViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Explorer.xaml.cs">
       <DependentUpon>Explorer.xaml</DependentUpon>
     </Compile>

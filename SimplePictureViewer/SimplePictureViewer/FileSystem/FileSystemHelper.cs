@@ -1,6 +1,7 @@
 ﻿using SimplePictureViewer.Domain;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
@@ -10,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace SimplePictureViewer.FileSystem
 {
-    public class FileSystemHelper
+    [Export(typeof(IFileSystemHelper))]
+    public class FileSystemHelper : IFileSystemHelper
     {
         private string homeDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
         private List<string> imageExtensions;

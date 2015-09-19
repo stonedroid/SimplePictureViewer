@@ -2,22 +2,24 @@
 using SimplePictureViewer.Service;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SimplePictureViewer.ViewModel
 {
-    public class ExplorerViewModel
+    [Export(typeof(IExplorerViewModel))]
+    public class ExplorerViewModel : IExplorerViewModel
     {
-        private ExplorerService explorerService;
+        private IExplorerService explorerService;
 
         public ExplorerDirectory Current { get; set; }
 
-        public ExplorerViewModel()
+        [ImportingConstructor]
+        public ExplorerViewModel(IExplorerService explorerService)
         {
-            //TODO consider using dependency injection
-            this.explorerService = new ExplorerService();
+            this.explorerService = explorerService;
             this.Current = explorerService.GetHomeDirectory();
         }
     }

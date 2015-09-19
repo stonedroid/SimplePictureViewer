@@ -2,20 +2,22 @@
 using SimplePictureViewer.FileSystem;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SimplePictureViewer.Service
 {
-    public class ExplorerService
+    [Export(typeof(IExplorerService))]
+    public class ExplorerService : IExplorerService
     {
-        FileSystemHelper fileSystemHelper;
+        private IFileSystemHelper fileSystemHelper;
 
-        public ExplorerService()
+        [ImportingConstructor]
+        public ExplorerService(IFileSystemHelper fileSystemHelper)
         {
-            //TODO consider using dependency injection
-            this.fileSystemHelper = new FileSystemHelper();
+            this.fileSystemHelper = fileSystemHelper;
         }
 
         public ExplorerDirectory GetHomeDirectory()
