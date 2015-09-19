@@ -1,6 +1,8 @@
 ﻿using SimplePictureViewer.Domain;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,11 +12,17 @@ namespace SimplePictureViewer.FileSystem
 {
     public class FileSystemHelper
     {
-        //TODO test code; this should be the path to the real home directory
-        // it could be aquired by asking the user to choose a directory on startup
-        // and then persist it, so we don't need to ask on every startup
-        // or maybe just use C: as default and let user change in settings
-        private string homeDirectoryPath = ".";
+        private string homeDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+        private List<string> imageExtensions;
+
+        public FileSystemHelper()
+        {
+            imageExtensions = new List<string>();
+            foreach (ImageCodecInfo imageCodec in ImageCodecInfo.GetImageEncoders())
+            {
+                imageExtensions.AddRange(imageCodec.FilenameExtension.ToLowerInvariant().Split(";".ToCharArray()).Select(x => x.ToLowerInvariant()));
+            }
+        }
 
         public ExplorerDirectory GetHomeDirectory()
         {
@@ -28,21 +36,34 @@ namespace SimplePictureViewer.FileSystem
             string path = GetPath(parent);
             foreach (string file in Directory.GetFiles(path))
             {
-                parent.AddChild(GetImage(parent, Path.GetFileNameWithoutExtension(file), Path.GetExtension(file)));
+                ExplorerImage child = GetImage(parent, Path.GetFileNameWithoutExtension(file), Path.GetExtension(file));
+                if (child != null)
+                {
+                    parent.AddChild(child);
+                }
             }
             foreach (var directory in Directory.GetDirectories(path))
             {
-                parent.AddChild(GetDirectory(parent, Path.GetFileName(directory)));
+                ExplorerDirectory child = GetDirectory(parent, Path.GetFileName(directory));
+                if (child != null)
+                {
+                    parent.AddChild(child);
+                }
             }
         }
 
         private ExplorerImage GetImage(ExplorerDirectory parent, string name, string extension)
         {
-            if(File.Exists(string.Format("{0}{1}", name, extension))) 
+            if(File.Exists(Path.Combine(GetPath(parent), string.Format(CultureInfo.InvariantCulture, "{0}{1}", name, extension))) && IsImageExtension(extension))
             {
-                //TODO add image file parsing
+                return new ExplorerImage(name, extension);
             }
-            return new ExplorerImage("TestImage1", ".jpg");
+            return null;
+        }
+
+        private bool IsImageExtension(string extension)
+        {
+            return imageExtensions.Contains(string.Format(CultureInfo.InvariantCulture, "*{0}", extension).ToLowerInvariant());
         }
 
         private ExplorerDirectory GetDirectory(ExplorerDirectory parent, string name)
