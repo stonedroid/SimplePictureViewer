@@ -13,8 +13,12 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <!-- TODO add image view here -->
-                <TextBlock Text="{Binding Path=Name}" Margin="0,0,5,5" />
+                <Border CornerRadius="6" BorderBrush="Gray" Background="LightGray" BorderThickness="2" DockPanel.Dock="Top">
+                    <StackPanel MaxHeight="200" MaxWidth="200">
+                        <Image Source="{Binding Path=ImageSource}" MaxWidth="150" MaxHeight="150" Margin="5,5,5,5"/>
+                        <TextBlock Text="{Binding Path=Name}" />
+                    </StackPanel>
+                </Border>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
 

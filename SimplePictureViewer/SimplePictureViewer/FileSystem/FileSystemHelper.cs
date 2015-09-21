@@ -28,7 +28,7 @@ namespace SimplePictureViewer.FileSystem
 
         public ExplorerDirectory GetHomeDirectory()
         {
-            var homeDirectory = new ExplorerDirectory(string.Empty);
+            var homeDirectory = new ExplorerDirectory(string.Empty, homeDirectoryPath);
             AddChildren(homeDirectory);
             return homeDirectory;
         }
@@ -56,9 +56,10 @@ namespace SimplePictureViewer.FileSystem
 
         private ExplorerImage GetImage(ExplorerDirectory parent, string name, string extension)
         {
-            if(File.Exists(Path.Combine(GetPath(parent), string.Format(CultureInfo.InvariantCulture, "{0}{1}", name, extension))) && IsImageExtension(extension))
+            string path = Path.Combine(GetPath(parent), string.Format(CultureInfo.InvariantCulture, "{0}{1}", name, extension));
+            if(File.Exists(path) && IsImageExtension(extension))
             {
-                return new ExplorerImage(name, extension);
+                return new ExplorerImage(name, path, extension);
             }
             return null;
         }
@@ -70,16 +71,18 @@ namespace SimplePictureViewer.FileSystem
 
         private ExplorerDirectory GetDirectory(ExplorerDirectory parent, string name)
         {
-            if (Directory.Exists(Path.Combine(GetPath(parent), name)))
+            string path = Path.Combine(GetPath(parent), name);
+            if (Directory.Exists(path))
             {
-                return new ExplorerDirectory(name);
+                return new ExplorerDirectory(name, path);
             }
             return null;
         }
 
         private string GetPath(ExplorerDirectory directory)
         {
-            if(directory == null) {
+            if (directory == null)
+            {
                 return homeDirectoryPath;
             }
             if (directory.Parent == null)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SimplePictureViewer.Domain
 {
@@ -10,10 +11,14 @@ namespace SimplePictureViewer.Domain
     {
         public ExplorerDirectory Parent { get; set; }
         public string Name { get; private set; }
+        public string Path { get; private set; }
 
-        public ExplorerItem(string name)
+        public abstract ImageSource ImageSource { get; }
+
+        public ExplorerItem(string name, string path)
         {
             this.Name = name;
+            this.Path = path;
         }
     }
 }

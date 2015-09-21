@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SimplePictureViewer.Domain
 {
@@ -18,7 +19,15 @@ namespace SimplePictureViewer.Domain
             }
         }
 
-        public ExplorerDirectory(string name) : base(name)
+        public override ImageSource ImageSource
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public ExplorerDirectory(string name, string path) : base(name, path)
         {
             this.children = new List<ExplorerItem>();
         }
